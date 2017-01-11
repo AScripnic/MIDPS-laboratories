@@ -1,0 +1,4 @@
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\bin\Release\Core.dll
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\bin\Release\Core.pdb
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\obj\Release\Core.dll
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\obj\Release\Core.pdb
