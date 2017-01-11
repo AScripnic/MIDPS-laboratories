@@ -39,10 +39,5 @@ namespace Core
         public void changeSign() {
             value = -value;
         }
-
-        public void mod(double value)
-        {
-            value %= value;
-        }
     }
 }

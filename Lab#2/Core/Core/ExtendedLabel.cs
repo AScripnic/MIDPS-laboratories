@@ -40,6 +40,10 @@ namespace Core
             {
                 Text = Text.Remove(Text.Length - 1, 1);
             }
+
+            if (Text[Text.Length - 1] == '.') {
+                deleteLastChar();
+            }
         }
 
         public void toggleSign()

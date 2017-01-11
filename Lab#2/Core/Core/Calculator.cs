@@ -8,7 +8,7 @@ namespace Core
 {
     public class Calculator : Operations
     {
-        private string expression;
+        private string expression = null;
 
         public void setExpression(string value)
         {
@@ -20,17 +20,22 @@ namespace Core
             this.value = value;
         }
 
+        public void clearExpression()
+        {
+            expression = null;
+        }
+
         public void executeExpression(double value)
         {
             switch (expression)
             {
-                case "√": sqrt(value); break;
+                case "√": sqrt(); break;
                 case "x^y": power(value); break;
-                case "÷": mod(value); break;
+                case "/": devide(value); break;
                 case "×": multiply(value); break;
                 case "-": substract(value); break;
                 case "+": sum(value); break;
-                default: setValue(value); break;
+                case null: setValue(value); break;
             }
         } 
     }

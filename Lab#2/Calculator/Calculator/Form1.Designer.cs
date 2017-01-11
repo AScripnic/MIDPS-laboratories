@@ -94,7 +94,7 @@
             this.resultButton.TabIndex = 3;
             this.resultButton.Text = "=";
             this.resultButton.UseVisualStyleBackColor = true;
-            this.resultButton.Click += new System.EventHandler(this.setExpression);
+            this.resultButton.Click += new System.EventHandler(this.showResult);
             // 
             // plusButton
             // 
@@ -235,7 +235,7 @@
             this.divideButton.Name = "divideButton";
             this.divideButton.Size = new System.Drawing.Size(60, 39);
             this.divideButton.TabIndex = 19;
-            this.divideButton.Text = "÷";
+            this.divideButton.Text = "/";
             this.divideButton.UseVisualStyleBackColor = true;
             this.divideButton.Click += new System.EventHandler(this.setExpression);
             // 

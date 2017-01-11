@@ -28,6 +28,7 @@ namespace GUI
         private void clear(object sender, EventArgs e)
         {
             displayLabel.resetLabel();
+            calc.clearExpression();
             calc.value = 0;
         }
 
@@ -41,8 +42,15 @@ namespace GUI
         }
 
         private void setExpression(object sender, EventArgs e) {
+            calc.executeExpression(displayLabel.toDouble());
             calc.setExpression((sender as Button).Text);
             displayLabel.resetLabel();
+        }
+
+        private void showResult(object sender, EventArgs e) {
+            calc.executeExpression(displayLabel.toDouble());
+            calc.clearExpression();
+            displayLabel.setValue(calc.value);
         }
     }
 }
