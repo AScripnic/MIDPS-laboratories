@@ -39,5 +39,10 @@ namespace Core
         public void changeSign() {
             value = -value;
         }
+
+        public bool isErrored
+        {
+            get { return double.IsNaN(value) || double.IsInfinity(value); }
+        }
     }
 }

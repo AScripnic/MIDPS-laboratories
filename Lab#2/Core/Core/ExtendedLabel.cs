@@ -16,11 +16,12 @@ namespace Core
         }
 
         public void addDigitOrDot(string digit) {
-            if (digit == "." && (Text.IndexOf('.') > -1 || Text == "0")) {
+            if (digit == "." && Text.IndexOf('.') > -1)
+            {
                 return;
             }
 
-            if (Text == "0")
+            if (Text == "0" && digit != ".")
             {
                 Text = digit;
             }
