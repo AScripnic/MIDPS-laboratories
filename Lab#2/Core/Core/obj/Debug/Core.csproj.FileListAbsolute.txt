@@ -1,0 +1,5 @@
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\bin\Debug\Core.dll
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\bin\Debug\Core.pdb
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\obj\Debug\Core.dll
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\obj\Debug\Core.pdb
+D:\Universitate\MIDPS\MIDPS-laboratories\Lab#2\Core\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
