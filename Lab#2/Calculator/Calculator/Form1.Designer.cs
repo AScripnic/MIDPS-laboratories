@@ -50,6 +50,7 @@
             this.powerButton = new System.Windows.Forms.Button();
             this.sqrtButton = new System.Windows.Forms.Button();
             this.displayLabel = new Core.ExtendedLabel();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // signButton
@@ -58,7 +59,8 @@
             this.signButton.Location = new System.Drawing.Point(12, 316);
             this.signButton.Name = "signButton";
             this.signButton.Size = new System.Drawing.Size(60, 39);
-            this.signButton.TabIndex = 0;
+            this.signButton.TabIndex = 23;
+            this.signButton.TabStop = false;
             this.signButton.Text = "±";
             this.signButton.UseVisualStyleBackColor = true;
             this.signButton.Click += new System.EventHandler(this.toggleSign);
@@ -70,6 +72,7 @@
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(60, 39);
             this.button0.TabIndex = 1;
+            this.button0.TabStop = false;
             this.button0.Text = "0";
             this.button0.UseVisualStyleBackColor = true;
             this.button0.Click += new System.EventHandler(this.addDigit);
@@ -81,6 +84,7 @@
             this.dotButton.Name = "dotButton";
             this.dotButton.Size = new System.Drawing.Size(60, 39);
             this.dotButton.TabIndex = 2;
+            this.dotButton.TabStop = false;
             this.dotButton.Text = ".";
             this.dotButton.UseVisualStyleBackColor = true;
             this.dotButton.Click += new System.EventHandler(this.addDigit);
@@ -92,6 +96,7 @@
             this.resultButton.Name = "resultButton";
             this.resultButton.Size = new System.Drawing.Size(60, 129);
             this.resultButton.TabIndex = 3;
+            this.resultButton.TabStop = false;
             this.resultButton.Text = "=";
             this.resultButton.UseVisualStyleBackColor = true;
             this.resultButton.Click += new System.EventHandler(this.showResult);
@@ -103,6 +108,7 @@
             this.plusButton.Name = "plusButton";
             this.plusButton.Size = new System.Drawing.Size(60, 39);
             this.plusButton.TabIndex = 7;
+            this.plusButton.TabStop = false;
             this.plusButton.Text = "+";
             this.plusButton.UseVisualStyleBackColor = true;
             this.plusButton.Click += new System.EventHandler(this.setExpression);
@@ -114,6 +120,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(60, 39);
             this.button6.TabIndex = 6;
+            this.button6.TabStop = false;
             this.button6.Text = "3";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.addDigit);
@@ -125,6 +132,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(60, 39);
             this.button7.TabIndex = 5;
+            this.button7.TabStop = false;
             this.button7.Text = "2";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.addDigit);
@@ -136,6 +144,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(60, 39);
             this.button8.TabIndex = 4;
+            this.button8.TabStop = false;
             this.button8.Text = "1";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.addDigit);
@@ -147,6 +156,7 @@
             this.minusButton.Name = "minusButton";
             this.minusButton.Size = new System.Drawing.Size(60, 39);
             this.minusButton.TabIndex = 11;
+            this.minusButton.TabStop = false;
             this.minusButton.Text = "-";
             this.minusButton.UseVisualStyleBackColor = true;
             this.minusButton.Click += new System.EventHandler(this.setExpression);
@@ -158,6 +168,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(60, 39);
             this.button10.TabIndex = 10;
+            this.button10.TabStop = false;
             this.button10.Text = "6";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.addDigit);
@@ -169,6 +180,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(60, 39);
             this.button11.TabIndex = 9;
+            this.button11.TabStop = false;
             this.button11.Text = "5";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.addDigit);
@@ -180,6 +192,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(60, 39);
             this.button12.TabIndex = 8;
+            this.button12.TabStop = false;
             this.button12.Text = "4";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.addDigit);
@@ -191,6 +204,7 @@
             this.multiplyButton.Name = "multiplyButton";
             this.multiplyButton.Size = new System.Drawing.Size(60, 39);
             this.multiplyButton.TabIndex = 15;
+            this.multiplyButton.TabStop = false;
             this.multiplyButton.Text = "×";
             this.multiplyButton.UseVisualStyleBackColor = true;
             this.multiplyButton.Click += new System.EventHandler(this.setExpression);
@@ -202,6 +216,7 @@
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(60, 39);
             this.button14.TabIndex = 14;
+            this.button14.TabStop = false;
             this.button14.Text = "9";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.addDigit);
@@ -213,6 +228,7 @@
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(60, 39);
             this.button15.TabIndex = 13;
+            this.button15.TabStop = false;
             this.button15.Text = "8";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.addDigit);
@@ -224,6 +240,7 @@
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(60, 39);
             this.button16.TabIndex = 12;
+            this.button16.TabStop = false;
             this.button16.Text = "7";
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.addDigit);
@@ -235,6 +252,7 @@
             this.divideButton.Name = "divideButton";
             this.divideButton.Size = new System.Drawing.Size(60, 39);
             this.divideButton.TabIndex = 19;
+            this.divideButton.TabStop = false;
             this.divideButton.Text = "/";
             this.divideButton.UseVisualStyleBackColor = true;
             this.divideButton.Click += new System.EventHandler(this.setExpression);
@@ -246,6 +264,7 @@
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(60, 39);
             this.deleteButton.TabIndex = 18;
+            this.deleteButton.TabStop = false;
             this.deleteButton.Text = "del";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.delete);
@@ -257,6 +276,7 @@
             this.cButton.Name = "cButton";
             this.cButton.Size = new System.Drawing.Size(126, 39);
             this.cButton.TabIndex = 17;
+            this.cButton.TabStop = false;
             this.cButton.Text = "C";
             this.cButton.UseVisualStyleBackColor = true;
             this.cButton.Click += new System.EventHandler(this.clear);
@@ -268,6 +288,7 @@
             this.powerButton.Name = "powerButton";
             this.powerButton.Size = new System.Drawing.Size(60, 39);
             this.powerButton.TabIndex = 22;
+            this.powerButton.TabStop = false;
             this.powerButton.Text = "x^y";
             this.powerButton.UseVisualStyleBackColor = true;
             this.powerButton.Click += new System.EventHandler(this.setExpression);
@@ -279,6 +300,7 @@
             this.sqrtButton.Name = "sqrtButton";
             this.sqrtButton.Size = new System.Drawing.Size(60, 39);
             this.sqrtButton.TabIndex = 21;
+            this.sqrtButton.TabStop = false;
             this.sqrtButton.Text = "√";
             this.sqrtButton.UseVisualStyleBackColor = true;
             this.sqrtButton.Click += new System.EventHandler(this.setExpression);
@@ -294,6 +316,16 @@
             this.displayLabel.TabIndex = 24;
             this.displayLabel.Text = "0";
             this.displayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "label1";
+            this.label1.Visible = false;
             // 
             // Form1
             // 
@@ -322,10 +354,13 @@
             this.Controls.Add(this.dotButton);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.signButton);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Calculator";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.keyPress);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -354,6 +389,7 @@
         private System.Windows.Forms.Button sqrtButton;
         private Core.ExtendedLabel displayLabel;
         private System.Windows.Forms.Label displayLabel2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
