@@ -1,5 +1,5 @@
-let asd = [1, 2 ,3];
+import moduleName from './name';
 
-for (let value of asd) {
-  console.log(value);
-}
+import './module/index';
+
+export default moduleName;
