@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,7 +93,11 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
+__webpack_require__(7);
+
 __webpack_require__(4);
+
+__webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4720,6 +4724,28 @@ angular.module('ui.router.state')
 "use strict";
 
 
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HomeController = function HomeController() {
+  _classCallCheck(this, HomeController);
+
+  this.testData = 'Hello Drakness';
+};
+
+angular.module(_name2.default).controller('homeController', [function () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return new (Function.prototype.bind.apply(HomeController, [null].concat(args)))();
+}]);
+
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4729,12 +4755,37 @@ angular.module('ui.router.state')
 
 __webpack_require__(3);
 
-__webpack_require__(5);
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(12);
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 __webpack_require__(6);
 
+__webpack_require__(8);
+
+__webpack_require__(9);
+
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4753,7 +4804,59 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 angular.module(_name2.default, [_angularUiRouter2.default]);
 
 /***/ }),
-/* 6 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+var _home = __webpack_require__(10);
+
+var _home2 = _interopRequireDefault(_home);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var states = [{
+  controller: 'homeController',
+  controllerAs: 'home',
+  name: 'home',
+  url: '',
+  template: _home2.default
+}];
+
+angular.module(_name2.default).config(function ($stateProvider) {
+  angular.forEach(states, function (state) {
+    $stateProvider.state(state);
+  });
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "<div>\r\n    <div class=\"main-logo\">\r\n        <img src=\"http://img.2ch.sc/img/1482462331158.png\" alt=\"3.5chan image should be here >.<\">\r\n    </div>\r\n    <div>\r\n        <content-table></content-table>\r\n    </div>\r\n</div>";
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_index__);
+
+
+angular.bootstrap(document, [__WEBPACK_IMPORTED_MODULE_0__app_index___default.a]);
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4765,30 +4868,27 @@ var _name2 = _interopRequireDefault(_name);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var states = [{
-  name: 'home',
-  url: '',
-  template: '\n        <div>\n            <h1>Welcome on the first page</h1>\n        </div>\n    '
-}];
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-angular.module(_name2.default).config(function ($stateProvider) {
-  angular.forEach(states, function (state) {
-    $stateProvider.state(state);
-    console.log(state);
-  });
+var ContentTableDirective = function ContentTableDirective() {
+  _classCallCheck(this, ContentTableDirective);
+
+  this.categories = {
+    politics: {
+      national: 'n',
+      external: ''
+    }
+  };
+};
+
+angular.module(_name2.default).directive('contentTable', function () {
+  return {
+    restrict: 'E',
+    controller: ContentTableDirective,
+    controllerAs: 'table',
+    template: '{{test}}'
+  };
 });
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_index__);
-
-
-angular.bootstrap(document, [__WEBPACK_IMPORTED_MODULE_0__app_index___default.a]);
 
 /***/ })
 /******/ ]);

@@ -1,4 +1,4 @@
-let path = require('path')
+let path = require('path');
 
 module.exports = {
   entry: './bootstrap.js',
@@ -14,6 +14,10 @@ module.exports = {
         query: {
           presets: 'es2015',
         }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
       }
     ]
   }

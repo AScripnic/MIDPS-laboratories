@@ -1,14 +1,13 @@
 import moduleName from '../name';
+import homePage from '../views/home.html';
 
 let states = [
   {
+    controller: 'homeController',
+    controllerAs: 'home',
     name: 'home',
     url: '',
-    template: `
-        <div>
-            <h1>Welcome on the first page</h1>
-        </div>
-    `
+    template: homePage
   }
 ];
 
@@ -17,6 +16,5 @@ angular
   .config(function($stateProvider) {
     angular.forEach(states, (state) => {
       $stateProvider.state(state);
-      console.log(state);
     });
   });
