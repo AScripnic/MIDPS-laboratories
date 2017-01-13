@@ -8,6 +8,13 @@ let states = [
     name: 'home',
     url: '',
     template: homePage
+  },
+  {
+    controller: 'boardController',
+    controllerAs: 'board',
+    name: 'board',
+    url: '/:boardId',
+    template: 'welcome to this board'
   }
 ];
 

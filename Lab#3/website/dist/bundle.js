@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,18 +93,19 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
-__webpack_require__(7);
-
-__webpack_require__(4);
+__webpack_require__(9);
 
 __webpack_require__(5);
+
+__webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _name2.default;
 
 /***/ }),
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports) {
 
 /**
@@ -4718,7 +4719,7 @@ angular.module('ui.router.state')
 })(window, window.angular);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4747,22 +4748,13 @@ angular.module(_name2.default).controller('homeController', [function () {
 }]);
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(3);
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(12);
+__webpack_require__(4);
 
 /***/ }),
 /* 6 */
@@ -4770,6 +4762,62 @@ __webpack_require__(12);
 
 "use strict";
 
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+var _contentTable = __webpack_require__(12);
+
+var _contentTable2 = _interopRequireDefault(_contentTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ContentTableDirective = function () {
+  function ContentTableDirective($state) {
+    _classCallCheck(this, ContentTableDirective);
+
+    this.state = $state;
+    this.categories = {
+      politics: {
+        national: 'n',
+        external: 'e'
+      },
+      interesets: {
+        'video games': 'v',
+        'sports': 'sports'
+      }
+    };
+  }
+
+  /**
+   * Go to specific state based on address
+   * @param {String} boardId
+   */
+
+
+  _createClass(ContentTableDirective, [{
+    key: 'openBoard',
+    value: function openBoard(boardId) {
+      this.state.go('board', { boardId: boardId });
+    }
+  }]);
+
+  return ContentTableDirective;
+}();
+
+angular.module(_name2.default).directive('contentTable', function () {
+  return {
+    restrict: 'E',
+    controller: ContentTableDirective,
+    controllerAs: 'table',
+    template: _contentTable2.default
+  };
+});
 
 /***/ }),
 /* 7 */
@@ -4780,28 +4828,12 @@ __webpack_require__(12);
 
 __webpack_require__(6);
 
-__webpack_require__(8);
-
-__webpack_require__(9);
-
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _name = __webpack_require__(0);
-
-var _name2 = _interopRequireDefault(_name);
-
-var _angularUiRouter = __webpack_require__(2);
-
-var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-angular.module(_name2.default, [_angularUiRouter2.default]);
 
 /***/ }),
 /* 9 */
@@ -4810,11 +4842,43 @@ angular.module(_name2.default, [_angularUiRouter2.default]);
 "use strict";
 
 
+__webpack_require__(8);
+
+__webpack_require__(10);
+
+__webpack_require__(11);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
-var _home = __webpack_require__(10);
+var _angularUiRouter = __webpack_require__(3);
+
+var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+angular.module(_name2.default, [_angularUiRouter2.default]);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+var _home = __webpack_require__(13);
 
 var _home2 = _interopRequireDefault(_home);
 
@@ -4826,6 +4890,12 @@ var states = [{
   name: 'home',
   url: '',
   template: _home2.default
+}, {
+  controller: 'boardController',
+  controllerAs: 'board',
+  name: 'board',
+  url: '/:boardId',
+  template: 'welcome to this board'
 }];
 
 angular.module(_name2.default).config(function ($stateProvider) {
@@ -4835,60 +4905,388 @@ angular.module(_name2.default).config(function ($stateProvider) {
 });
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "<div>\r\n    <div class=\"main-logo\">\r\n        <img src=\"http://img.2ch.sc/img/1482462331158.png\" alt=\"3.5chan image should be here >.<\">\r\n    </div>\r\n    <div>\r\n        <content-table></content-table>\r\n    </div>\r\n</div>";
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_index__);
-
-
-angular.bootstrap(document, [__WEBPACK_IMPORTED_MODULE_0__app_index___default.a]);
-
-/***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _name = __webpack_require__(0);
+module.exports = "<div class=\"content-table\">\r\n    <div class=\"content-header\">\r\n        <h2>Table of Content</h2>\r\n    </div>\r\n    <div class=\"row categories\">\r\n        <div class=\"col-md-4\" ng-repeat=\"(name, category) in table.categories track by name\">\r\n            <ul>\r\n                <li>\r\n                    <label>{{name}}</label>\r\n                </li>\r\n                <li ng-repeat=\"(name, boardId) in category track by name\">\r\n                    <a href=\"javascript:;\" ng-click=\"table.openBoard(boardId)\">{{name}}</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
 
-var _name2 = _interopRequireDefault(_name);
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+"use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ContentTableDirective = function ContentTableDirective() {
-  _classCallCheck(this, ContentTableDirective);
+module.exports = "<div class=\"container home-page\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-offset-3 col-md-6\">\r\n            <div class=\"main-logo\">\r\n                <img src=\"/assets/img/main-logo.png\" alt=\"3.5chan image should be here\">\r\n            </div>\r\n            <div>\r\n                <content-table></content-table>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
-  this.categories = {
-    politics: {
-      national: 'n',
-      external: ''
-    }
-  };
+/***/ }),
+/* 14 */,
+/* 15 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
 };
 
-angular.module(_name2.default).directive('contentTable', function () {
-  return {
-    restrict: 'E',
-    controller: ContentTableDirective,
-    controllerAs: 'table',
-    template: '{{test}}'
-  };
-});
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+	}),
+	getHeadElement = memoize(function () {
+		return document.head || document.getElementsByTagName("head")[0];
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [];
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the bottom of <head>.
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+}
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var head = getHeadElement();
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			head.insertBefore(styleElement, head.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			head.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		head.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	styleElement.type = "text/css";
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove;
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss__);
+
+
+
+
+angular.bootstrap(document, [__WEBPACK_IMPORTED_MODULE_0__app_index___default.a]);
+
+/***/ }),
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(20);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(16)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss", function() {
+			var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(15)();
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
