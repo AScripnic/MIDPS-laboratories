@@ -11,7 +11,7 @@ class ContentTableDirective{
       },
       interesets: {
         'video games': 'v',
-        'sports': 'sports'
+        'sports': 's'
       }
     };
   }

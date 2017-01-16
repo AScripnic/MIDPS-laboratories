@@ -1,5 +1,7 @@
 import moduleName from '../name';
-import homePage from '../views/home.html';
+
+import homeTemplate from '../views/home.html';
+import boardTemplate from '../views/board.html';
 
 let states = [
   {
@@ -7,14 +9,14 @@ let states = [
     controllerAs: 'home',
     name: 'home',
     url: '',
-    template: homePage
+    template: homeTemplate
   },
   {
     controller: 'boardController',
-    controllerAs: 'board',
+    controllerAs: 'boardCtrl',
     name: 'board',
     url: '/:boardId',
-    template: 'welcome to this board'
+    template: boardTemplate
   }
 ];
 

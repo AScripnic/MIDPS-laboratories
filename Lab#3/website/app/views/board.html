@@ -1,0 +1,17 @@
+<div class="board-page">
+    <div class="header">
+        [
+        <span ng-repeat="boardId in boardCtrl.boards track by $index">
+            <a href ng-click="boardCtrl.changeBoard(boardId)">{{boardId}}</a>
+            <span ng-if="boardCtrl.showSlash($index)"> /</span>
+        </span>
+        ]
+    </div>
+
+    <div class="row intro">
+        <div class="col-md-offset-4 col-md-3">
+            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name comes here'}}</h2>
+        </div>
+    </div>
+    Welcome to current board {{boardCtrl.state.params.boardId}}
+</div>

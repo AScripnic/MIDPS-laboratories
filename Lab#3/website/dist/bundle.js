@@ -4735,8 +4735,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var HomeController = function HomeController() {
   _classCallCheck(this, HomeController);
-
-  this.testData = 'Hello Drakness';
 };
 
 angular.module(_name2.default).controller('homeController', [function () {
@@ -4755,6 +4753,8 @@ angular.module(_name2.default).controller('homeController', [function () {
 
 
 __webpack_require__(4);
+
+__webpack_require__(22);
 
 /***/ }),
 /* 6 */
@@ -4789,7 +4789,7 @@ var ContentTableDirective = function () {
       },
       interesets: {
         'video games': 'v',
-        'sports': 'sports'
+        'sports': 's'
       }
     };
   }
@@ -4882,6 +4882,10 @@ var _home = __webpack_require__(13);
 
 var _home2 = _interopRequireDefault(_home);
 
+var _board = __webpack_require__(21);
+
+var _board2 = _interopRequireDefault(_board);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var states = [{
@@ -4892,10 +4896,10 @@ var states = [{
   template: _home2.default
 }, {
   controller: 'boardController',
-  controllerAs: 'board',
+  controllerAs: 'boardCtrl',
   name: 'board',
   url: '/:boardId',
-  template: 'welcome to this board'
+  template: _board2.default
 }];
 
 angular.module(_name2.default).config(function ($stateProvider) {
@@ -5283,10 +5287,80 @@ exports = module.exports = __webpack_require__(15)();
 
 
 // module
-exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n", ""]);
+exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n\n.board-page {\n  padding-left: 5px;\n  padding-right: 5px; }\n  .board-page .header a {\n    color: #800;\n    cursor: pointer; }\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "<div class=\"board-page\">\r\n    <div class=\"header\">\r\n        [\r\n        <span ng-repeat=\"boardId in boardCtrl.boards track by $index\">\r\n            <a href ng-click=\"boardCtrl.changeBoard(boardId)\">{{boardId}}</a>\r\n            <span ng-if=\"boardCtrl.showSlash($index)\"> /</span>\r\n        </span>\r\n        ]\r\n    </div>\r\n\r\n    <div class=\"row intro\">\r\n        <div class=\"col-md-offset-4 col-md-3\">\r\n            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name comes here'}}</h2>\r\n        </div>\r\n    </div>\r\n    Welcome to current board {{boardCtrl.state.params.boardId}}\r\n</div>";
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BoardController = function () {
+  function BoardController($state) {
+    _classCallCheck(this, BoardController);
+
+    this.state = $state;
+    this.boards = ['n', 'e', 'v', 's'];
+  }
+
+  /**
+   * Return if a slash should be shown in header
+   * @param {Number} index
+   * @returns {Boolean}
+   */
+
+
+  _createClass(BoardController, [{
+    key: 'showSlash',
+    value: function showSlash(index) {
+      return index != this.boards.length - 1;
+    }
+
+    /**
+     * Change board
+     * @param {String} boardId
+     */
+
+  }, {
+    key: 'changeBoard',
+    value: function changeBoard(boardId) {
+      this.state.go('board', { boardId: boardId });
+    }
+  }]);
+
+  return BoardController;
+}();
+
+angular.module(_name2.default).controller('boardController', ['$state', function () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return new (Function.prototype.bind.apply(BoardController, [null].concat(args)))();
+}]);
 
 /***/ })
 /******/ ]);

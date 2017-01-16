@@ -1,9 +1,7 @@
 import moduleName from '../name';
 
 class HomeController {
-  constructor() {
-    this.testData = 'Hello Drakness';
-  }
+  constructor() {}
 }
 
 angular.module(moduleName)
