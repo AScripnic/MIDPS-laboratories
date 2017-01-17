@@ -1,0 +1,13 @@
+<div class="post">
+    <div class="side-arrows">>></div>
+    <div class="inner-post">
+        <div class="post-header">
+            <span class="author">{{post.author}}</span> {{post.customTimestamp}} No.{{post.id}} <br>
+            <div class="image-container" ng-if="post.imageName">
+                File: <a ng-href="{{post.imageLink}}" target="_blank">{{post.imageName}}</a> (126KB, 800x715) <br>
+                <img ng-src="{{post.previewImageLink}}" width="125" alt="post image" />
+            </div>
+            <span class="message-box" ng-bind="post.message"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+.row {
+  max-width: 100%;
+}
+
+.thread {
+  margin-left: 15px;
+
+  .thread-post {
+    color: #800000;
+
+    img {
+      float: left;
+    }
+
+    .post-content {
+      white-space: pre-wrap;
+    }
+
+    .thread-content {
+      margin-top: 10px;
+      color: #707070;
+    }
+  }
+}
+
+.post-header {
+  margin-bottom: 5px;
+
+  .author {
+    color: #117743;
+    font-weight: bold;
+  }
+}
+
+.image-metadata {
+  a {
+    text-decoration: underline;
+  }
+}
+
+.post {
+  display: block
+}
