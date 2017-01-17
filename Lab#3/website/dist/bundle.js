@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,18 +93,43 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
-__webpack_require__(9);
+__webpack_require__(10);
 
-__webpack_require__(5);
+__webpack_require__(6);
 
-__webpack_require__(7);
+__webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _name2.default;
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(16);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(18)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss", function() {
+			var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
@@ -4725,6 +4750,90 @@ angular.module('ui.router.state')
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BoardController = function () {
+  function BoardController($state) {
+    _classCallCheck(this, BoardController);
+
+    this.state = $state;
+    this.boards = ['n', 'e', 'v', 's'];
+    this.threadsPreview = [{
+      previewImageLink: 'http://www.cheeseandburger.com/images/html5/home-burger.png',
+      imageLink: 'http://www.drodd.com/images15/burger15.png',
+      author: 'Anonymous',
+      id: '8473659',
+      timestamp: new Date(),
+      replies: 12,
+      imagesTotal: 1,
+      imageName: 'the mcchicken, for me.jpg',
+      lastReplies: [],
+      message: '\n            Daily cook off.\n            \n            Your main ingredient is....\n            \n            A pound of skinless chicken breast.\n            \n            You have 3 hours and a fully stocked fridge and pantry.\n            \n            Your challenge... Make dinner that isn\'t tendies\n            \n            \n            Go!\n          '
+    }, {
+      previewImageLink: 'https://lh3.googleusercontent.com/i-vHb3CryeDkJrTydwmJFJ1M1HrFtjAGIDC5xI7wI7bkOqV_iV0Zpr6jtm-9Lmv6n1pgkMBhJHSb2Ef1XMxLEQ=s400',
+      imageLink: 'http://bestburgerinsf.com/wp-content/themes/burger2014/images/best-burger-in-sf.png',
+      author: 'Anonymous',
+      id: '8473660',
+      timestamp: new Date(),
+      replies: 32,
+      imagesTotal: 2,
+      imageName: 'shepherds.jpg',
+      lastReplies: [],
+      message: 'Shepherd\'s pie. Done.'
+    }];
+  }
+
+  /**
+   * Return if a slash should be shown in header
+   * @param {Number} index
+   * @returns {Boolean}
+   */
+
+
+  _createClass(BoardController, [{
+    key: 'showSlash',
+    value: function showSlash(index) {
+      return index != this.boards.length - 1;
+    }
+
+    /**
+     * Change board
+     * @param {String} boardId
+     */
+
+  }, {
+    key: 'changeBoard',
+    value: function changeBoard(boardId) {
+      this.state.go('board', { boardId: boardId });
+    }
+  }]);
+
+  return BoardController;
+}();
+
+angular.module(_name2.default).controller('boardController', ['$state', function () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return new (Function.prototype.bind.apply(BoardController, [null].concat(args)))();
+}]);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
@@ -4746,18 +4855,18 @@ angular.module(_name2.default).controller('homeController', [function () {
 }]);
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+__webpack_require__(5);
+
 __webpack_require__(4);
 
-__webpack_require__(22);
-
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4769,7 +4878,7 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
-var _contentTable = __webpack_require__(12);
+var _contentTable = __webpack_require__(23);
 
 var _contentTable2 = _interopRequireDefault(_contentTable);
 
@@ -4820,20 +4929,17 @@ angular.module(_name2.default).directive('contentTable', function () {
 });
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(6);
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+__webpack_require__(7);
+
+__webpack_require__(20);
+
+__webpack_require__(22);
 
 /***/ }),
 /* 9 */
@@ -4842,14 +4948,21 @@ __webpack_require__(6);
 "use strict";
 
 
-__webpack_require__(8);
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(10);
+"use strict";
+
+
+__webpack_require__(9);
 
 __webpack_require__(11);
 
+__webpack_require__(12);
+
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4868,7 +4981,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 angular.module(_name2.default, [_angularUiRouter2.default]);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4878,11 +4991,11 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
-var _home = __webpack_require__(13);
+var _home = __webpack_require__(15);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _board = __webpack_require__(21);
+var _board = __webpack_require__(13);
 
 var _board2 = _interopRequireDefault(_board);
 
@@ -4909,16 +5022,17 @@ angular.module(_name2.default).config(function ($stateProvider) {
 });
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = "<div class=\"content-table\">\r\n    <div class=\"content-header\">\r\n        <h2>Table of Content</h2>\r\n    </div>\r\n    <div class=\"row categories\">\r\n        <div class=\"col-md-4\" ng-repeat=\"(name, category) in table.categories track by name\">\r\n            <ul>\r\n                <li>\r\n                    <label>{{name}}</label>\r\n                </li>\r\n                <li ng-repeat=\"(name, boardId) in category track by name\">\r\n                    <a href=\"javascript:;\" ng-click=\"table.openBoard(boardId)\">{{name}}</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"board-page\">\r\n    <div class=\"header\">\r\n        [\r\n        <span ng-repeat=\"boardId in boardCtrl.boards track by $index\">\r\n            <a href ng-click=\"boardCtrl.changeBoard(boardId)\">{{boardId}}</a>\r\n            <span ng-if=\"boardCtrl.showSlash($index)\"> /</span>\r\n        </span>\r\n        ]\r\n    </div>\r\n\r\n    <div class=\"row intro\">\r\n        <div class=\"col-md-offset-4 col-md-4\">\r\n            <img src=\"/assets/img/banner.gif\" alt=\"funny cat\">\r\n            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name'}}</h2>\r\n        </div>\r\n    </div>\r\n    <hr class=\"full-size\">\r\n\r\n    <div class=\"row intro\">\r\n        <new-thread class=\"col-md-offset-4 col-md-4\"></new-thread>\r\n    </div>\r\n\r\n    <hr>\r\n    <div class=\"board-actions\">\r\n        [<a href>Catalog</a>]\r\n    </div>\r\n    <hr>\r\n\r\n    <div>\r\n        <div ng-repeat=\"thread in boardCtrl.threadsPreview track by $index\">\r\n            <thread-preview preview=\"thread\"></thread-preview>\r\n            <hr>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ }),
-/* 13 */
+/* 14 */,
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4927,8 +5041,21 @@ module.exports = "<div class=\"content-table\">\r\n    <div class=\"content-head
 module.exports = "<div class=\"container home-page\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-offset-3 col-md-6\">\r\n            <div class=\"main-logo\">\r\n                <img src=\"/assets/img/main-logo.png\" alt=\"3.5chan image should be here\">\r\n            </div>\r\n            <div>\r\n                <content-table></content-table>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ }),
-/* 14 */,
-/* 15 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(17)();
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.post-header .author {\n  color: #117743;\n  font-weight: bold; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n\n.board-page {\n  padding-left: 5px;\n  padding-right: 5px; }\n  .board-page .header a {\n    color: #800;\n    cursor: pointer; }\n  .board-page .intro {\n    text-align: center; }\n    .board-page .intro h2 {\n      font-weight: bold; }\n    .board-page .intro img {\n      display: block;\n      margin-left: auto;\n      margin-right: auto;\n      border: 1px solid black; }\n  .board-page hr {\n    border-top: 1px solid #B7C5D9;\n    margin-top: 0;\n    margin-bottom: 5px; }\n    .board-page hr.full-size {\n      width: 90%; }\n  .board-page .board-actions {\n    margin-bottom: 5px;\n    padding-left: 5px; }\n\n.new-thread .display-button h3:first-of-type {\n  margin-top: 10px;\n  font-weight: bold; }\n  .new-thread .display-button h3:first-of-type a {\n    margin-left: 1px;\n    margin-right: 1px; }\n\n.new-thread .form {\n  margin-bottom: 10px; }\n  .new-thread .form .row {\n    margin-bottom: 2px; }\n    .new-thread .form .row div:first-child {\n      border: 1px solid black;\n      background-color: #98E;\n      color: black;\n      font-weight: bold;\n      text-align: left;\n      padding-left: 5px; }\n    .new-thread .form .row .subject-input, .new-thread .form .row .name-input, .new-thread .form .row .comment-textarea, .new-thread .form .row .submit-button {\n      padding-left: 2px;\n      padding-right: 2px; }\n    .new-thread .form .row div input {\n      height: 22px;\n      width: 100%; }\n    .new-thread .form .row div input, .new-thread .form .row div textarea {\n      float: left;\n      color: black; }\n    .new-thread .form .row div textarea {\n      width: 100%; }\n    .new-thread .form .row .submit-button input {\n      float: right;\n      color: black;\n      text-transform: capitalize; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 /*
@@ -4984,7 +5111,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 /*
@@ -5236,14 +5363,14 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__assets_scss_main_scss__);
 
 
@@ -5252,57 +5379,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 angular.bootstrap(document, [__WEBPACK_IMPORTED_MODULE_0__app_index___default.a]);
 
 /***/ }),
-/* 18 */,
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(20);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss", function() {
-			var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(15)();
-// imports
-
-
-// module
-exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n\n.board-page {\n  padding-left: 5px;\n  padding-right: 5px; }\n  .board-page .header a {\n    color: #800;\n    cursor: pointer; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "<div class=\"board-page\">\r\n    <div class=\"header\">\r\n        [\r\n        <span ng-repeat=\"boardId in boardCtrl.boards track by $index\">\r\n            <a href ng-click=\"boardCtrl.changeBoard(boardId)\">{{boardId}}</a>\r\n            <span ng-if=\"boardCtrl.showSlash($index)\"> /</span>\r\n        </span>\r\n        ]\r\n    </div>\r\n\r\n    <div class=\"row intro\">\r\n        <div class=\"col-md-offset-4 col-md-3\">\r\n            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name comes here'}}</h2>\r\n        </div>\r\n    </div>\r\n    Welcome to current board {{boardCtrl.state.params.boardId}}\r\n</div>";
-
-/***/ }),
-/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5314,53 +5391,133 @@ var _name = __webpack_require__(0);
 
 var _name2 = _interopRequireDefault(_name);
 
+var _createThread = __webpack_require__(24);
+
+var _createThread2 = _interopRequireDefault(_createThread);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var BoardController = function () {
-  function BoardController($state) {
-    _classCallCheck(this, BoardController);
+var NewThread = function () {
+  function NewThread() {
+    _classCallCheck(this, NewThread);
 
-    this.state = $state;
-    this.boards = ['n', 'e', 'v', 's'];
+    this.isFormActive = false;
+    this.threadData = {};
   }
 
   /**
-   * Return if a slash should be shown in header
-   * @param {Number} index
-   * @returns {Boolean}
+   * Display new thread form
    */
 
 
-  _createClass(BoardController, [{
-    key: 'showSlash',
-    value: function showSlash(index) {
-      return index != this.boards.length - 1;
+  _createClass(NewThread, [{
+    key: 'showForm',
+    value: function showForm() {
+      this.isFormActive = true;
     }
 
     /**
-     * Change board
-     * @param {String} boardId
+     * Check if user completed the form
+     * @returns {Boolean}
      */
 
   }, {
-    key: 'changeBoard',
-    value: function changeBoard(boardId) {
-      this.state.go('board', { boardId: boardId });
+    key: 'createThread',
+
+
+    /**
+     * Create a thread
+     */
+    value: function createThread() {
+      if (!this.isDataValid) {
+        alert('Please fill at least subject or comment information');
+      }
+    }
+  }, {
+    key: 'isDataValid',
+    get: function get() {
+      return !!(this.threadData.subject || this.threadData.comment);
     }
   }]);
 
-  return BoardController;
+  return NewThread;
 }();
 
-angular.module(_name2.default).controller('boardController', ['$state', function () {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(BoardController, [null].concat(args)))();
+angular.module(_name2.default).directive('newThread', [function () {
+  return {
+    restrict: 'E',
+    controller: NewThread,
+    controllerAs: 'newThreadCtrl',
+    template: _createThread2.default
+  };
 }]);
+
+/***/ }),
+/* 21 */,
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__(0);
+
+var _name2 = _interopRequireDefault(_name);
+
+var _threadPreview = __webpack_require__(25);
+
+var _threadPreview2 = _interopRequireDefault(_threadPreview);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ThreadPreview = function ThreadPreview($scope) {
+  _classCallCheck(this, ThreadPreview);
+
+  this.thread = $scope.thread;
+};
+
+angular.module(_name2.default).directive('threadPreview', [function () {
+  return {
+    restrict: 'E',
+    controller: ThreadPreview,
+    controllerAs: 'previewCtrl',
+    template: _threadPreview2.default,
+    scope: {
+      thread: '=preview'
+    }
+  };
+}]);
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "<div class=\"content-table\">\r\n    <div class=\"content-header\">\r\n        <h2>Table of Content</h2>\r\n    </div>\r\n    <div class=\"row categories\">\r\n        <div class=\"col-md-4\" ng-repeat=\"(name, category) in table.categories track by name\">\r\n            <ul>\r\n                <li>\r\n                    <label>{{name}}</label>\r\n                </li>\r\n                <li ng-repeat=\"(name, boardId) in category track by name\">\r\n                    <a href=\"javascript:;\" ng-click=\"table.openBoard(boardId)\">{{name}}</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "<div class=\"new-thread\">\r\n    <div class=\"display-button\" ng-if=\"!newThreadCtrl.isFormActive\">\r\n        <h3>\r\n            [<a href ng-click=\"newThreadCtrl.showForm()\">Start a new thread</a>]\r\n        </h3>\r\n    </div>\r\n    <div class=\"form\" ng-if=\"newThreadCtrl.isFormActive\">\r\n        <form ng-submit=\"newThreadCtrl.createThread()\" name=\"newThread\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Name</div>\r\n                <div class=\"col-md-7 name-input\">\r\n                    <input type=\"text\" name=\"name\" ng-model=\"newThreadCtrl.threadData.name\" placeholder=\"Anonymous\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Subject</div>\r\n                <div class=\"col-md-7 subject-input\">\r\n                    <input type=\"text\" name=\"subject\" ng-model=\"newThreadCtrl.threadData.subject\" />\r\n                </div>\r\n                <div class=\"col-md-1 submit-button\">\r\n                    <input type=\"submit\" value=\"post\"/>\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Comment</div>\r\n                <div class=\"col-md-8 comment-textarea\">\r\n                    <textarea name=\"comment\" ng-model=\"newThreadCtrl.threadData.comment\" cols=\"48\" rows=\"4\"></textarea>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "<div class=\"thread-preview\">\r\n    <div>\r\n        <div class=\"image-metadata\">\r\n            File: <a target=\"_blank\" ng-href=\"{{thread.imageLink}}\">{{thread.imageName}}</a> (30 KB, 970x746)\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <img ng-src=\"{{thread.previewImageLink}}\" alt=\"image preview\" width=\"250\"/>\r\n            </div>\r\n            <div class=\"col-md-10\">\r\n                <div class=\"post-header\">\r\n                    <span class=\"author\">{{thread.author}}</span> {{thread.timestamp}} No.{{thread.id}} [<a href>Replay</a>]\r\n                </div>\r\n                <div class=\"post-content\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>";
 
 /***/ })
 /******/ ]);

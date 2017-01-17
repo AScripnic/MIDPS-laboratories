@@ -1,5 +1,5 @@
 import moduleName from '../name';
-import contentTableTemplate from '../views/content-table.html';
+import contentTableTemplate from '../views/directives/content-table.html';
 
 class ContentTableDirective{
   constructor($state) {

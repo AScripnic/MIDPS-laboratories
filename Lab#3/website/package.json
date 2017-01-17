@@ -23,6 +23,7 @@
     "webpack": "^2.2.0-rc.4"
   },
   "dependencies": {
-    "angular-ui-router": "^0.3.2"
+    "angular-ui-router": "^0.3.2",
+    "moment": "^2.17.1"
   }
 }
