@@ -1,3 +1,4 @@
 import './contentTable';
 import './newThread';
-import './threadPreview';
+import './threadPost';
+import './post';
