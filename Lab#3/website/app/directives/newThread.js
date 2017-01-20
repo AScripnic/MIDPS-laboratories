@@ -2,9 +2,11 @@ import moduleName from '../name';
 import newThreadTemplate from '../views/directives/create-thread.html';
 
 class NewThread {
-  constructor() {
+  constructor(threadService) {
+    this.threadService = threadService;
+
     this.isFormActive = false;
-    this.threadData = {};
+    this.threadData = {subject:'asdasd', comment:'asdasd'};
   }
 
   /**
@@ -29,6 +31,14 @@ class NewThread {
     if (!this.isDataValid) {
       alert('Please fill at least subject or comment information')
     }
+
+    this.threadService.createThread(this.file, this.threadData).then(() => {
+      this.isFormActive = false;
+      alert('done');
+    }).catch((error) => {
+      alert('error');
+      console.log(error);
+    });
   }
 }
 
