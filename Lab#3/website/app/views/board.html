@@ -1,0 +1,35 @@
+<div class="board-page">
+    <div class="header">
+        [
+        <span ng-repeat="boardId in boardCtrl.boards track by $index">
+            <a href ng-click="boardCtrl.changeBoard(boardId)">{{boardId}}</a>
+            <span ng-if="boardCtrl.showSlash($index)"> /</span>
+        </span>
+        ]
+    </div>
+
+    <div class="row intro">
+        <div class="col-md-offset-4 col-md-4">
+            <img src="/assets/img/banner.gif" alt="funny cat">
+            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name'}}</h2>
+        </div>
+    </div>
+    <hr class="full-size">
+
+    <div class="row intro">
+        <new-thread on-succeed="boardCtrl.onAdditionSucceed()" create-thread="!boardCtrl.onThreadPage" class="col-md-offset-4 col-md-4"></new-thread>
+    </div>
+
+    <hr>
+    <div class="board-actions">
+        [<a href>Catalog</a>]
+    </div>
+    <hr>
+
+    <div>
+        <div ng-repeat="thread in boardCtrl.threadsPreview track by $index">
+            <thread-post on-thread-page="boardCtrl.onThreadPage" post="thread"></thread-post>
+            <hr class="threads-divider">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="content-table">
+    <div class="content-header">
+        <h2>Table of Content</h2>
+    </div>
+    <div class="row categories">
+        <div class="col-md-4" ng-repeat="(name, category) in table.categories track by name">
+            <ul>
+                <li>
+                    <label>{{name}}</label>
+                </li>
+                <li ng-repeat="(name, boardId) in category track by name">
+                    <a href="javascript:;" ng-click="table.openBoard(boardId)">{{name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
