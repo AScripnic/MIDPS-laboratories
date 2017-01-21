@@ -17,6 +17,13 @@ let states = [
     name: 'board',
     url: '/:boardId',
     template: boardTemplate
+  },
+  {
+    controller: 'boardController',
+    controllerAs: 'boardCtrl',
+    name: 'thread',
+    url: '/:boardId/:threadId',
+    template: boardTemplate
   }
 ];
 

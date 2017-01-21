@@ -19413,69 +19413,63 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BoardController = function () {
-  function BoardController($state) {
+  function BoardController($state, threadService) {
     _classCallCheck(this, BoardController);
 
     this.state = $state;
+    this.threadService = threadService;
+
     this.boards = ['n', 'e', 'v', 's'];
-    this.threadsPreview = [new _ThreadPreviewModel.ThreadPreviewModel({
-      previewImageLink: 'http://www.cheeseandburger.com/images/html5/home-burger.png',
-      imageLink: 'http://www.drodd.com/images15/burger15.png',
-      author: 'Anonymous',
-      id: '8473659',
-      timestamp: new Date(),
-      replies: 12,
-      imagesTotal: 1,
-      imageName: 'the mcchicken, for me.jpg',
-      lastReplies: [{
-        author: 'Anonymous',
-        id: '8473659',
-        timestamp: new Date(),
-        message: 'a small reply'
-      }, {
-        previewImageLink: 'http://www.cheeseandburger.com/images/html5/home-burger.png',
-        imageLink: 'http://www.drodd.com/images15/burger15.png',
-        author: 'Anonymous',
-        id: '8473659',
-        timestamp: new Date(),
-        imageName: 'sample image.jpg'
-      }],
-      message: '\n            Daily cook off.\n            \n            Your main ingredient is....\n            \n            A pound of skinless chicken breast.\n            \n            You have 3 hours and a fully stocked fridge and pantry.\n            \n            Your challenge... Make dinner that isn\'t tendies\n            \n            \n            Go!\n          '
-    }), new _ThreadPreviewModel.ThreadPreviewModel({
-      previewImageLink: 'https://lh3.googleusercontent.com/i-vHb3CryeDkJrTydwmJFJ1M1HrFtjAGIDC5xI7wI7bkOqV_iV0Zpr6jtm-9Lmv6n1pgkMBhJHSb2Ef1XMxLEQ=s400',
-      imageLink: 'http://bestburgerinsf.com/wp-content/themes/burger2014/images/best-burger-in-sf.png',
-      author: 'Anonymous',
-      id: '8473660',
-      timestamp: new Date(),
-      replies: 32,
-      imagesTotal: 2,
-      imageName: 'shepherds.jpg',
-      lastReplies: [{
-        author: 'Anonymous',
-        id: '8473659',
-        timestamp: new Date(),
-        message: 'a small reply 2'
-      }, {
-        previewImageLink: 'http://www.cheeseandburger.com/images/html5/home-burger.png',
-        imageLink: 'http://www.drodd.com/images15/burger15.png',
-        author: 'Anonymous',
-        id: '8473659',
-        timestamp: new Date(),
-        imageName: 'sample image.jpg',
-        message: 'I like this post'
-      }],
-      message: 'Shepherd\'s pie. Done.'
-    })];
+    this.onThreadPage = this.state.current.name !== 'board';
+    this.onThreadPage ? this.getPosts() : this.getThreads();
   }
 
   /**
-   * Return if a slash should be shown in header
-   * @param {Number} index
-   * @returns {Boolean}
+   * Get posts/threads if a new post/thread was created
    */
 
 
   _createClass(BoardController, [{
+    key: 'onAdditionSucceed',
+    value: function onAdditionSucceed() {
+      this.onThreadPage ? this.getPosts() : this.getThreads();
+    }
+
+    /**
+     * Get specific thread's posts
+     */
+
+  }, {
+    key: 'getPosts',
+    value: function getPosts() {
+      var _this = this;
+
+      this.threadService.getPosts(this.state.params.threadId).then(function (threads) {
+        _this.threadsPreview = threads;
+      });
+    }
+
+    /**
+     * Get last threads
+     */
+
+  }, {
+    key: 'getThreads',
+    value: function getThreads() {
+      var _this2 = this;
+
+      this.threadService.getLastActiveThreads(this.state.params.boardId).then(function (threads) {
+        _this2.threadsPreview = threads;
+      });
+    }
+
+    /**
+     * Return if a slash should be shown in header
+     * @param {Number} index
+     * @returns {Boolean}
+     */
+
+  }, {
     key: 'showSlash',
     value: function showSlash(index) {
       return index != this.boards.length - 1;
@@ -19496,13 +19490,7 @@ var BoardController = function () {
   return BoardController;
 }();
 
-angular.module(_name2.default).controller('boardController', ['$state', function () {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(BoardController, [null].concat(args)))();
-}]);
+angular.module(_name2.default).controller('boardController', BoardController);
 
 /***/ }),
 /* 114 */
@@ -19642,13 +19630,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var NewThread = function () {
-  function NewThread(threadService) {
+  function NewThread(threadService, $state, $scope) {
     _classCallCheck(this, NewThread);
 
     this.threadService = threadService;
+    this.scope = $scope;
+    this.state = $state;
 
     this.isFormActive = false;
-    this.threadData = { subject: 'asdasd', comment: 'asdasd' };
+    this.threadData = {
+      board: $state.params.boardId
+    };
   }
 
   /**
@@ -19668,22 +19660,50 @@ var NewThread = function () {
      */
 
   }, {
-    key: 'createThread',
+    key: 'create',
 
 
     /**
-     * Create a thread
+     * Create a post or a thread based on scope.createThread
      */
-    value: function createThread() {
-      var _this = this;
-
+    value: function create() {
       if (!this.isDataValid) {
         alert('Please fill at least subject or comment information');
       }
 
-      this.threadService.createThread(this.file, this.threadData).then(function () {
+      this.scope.createThread ? this.createThread() : this.createPost();
+    }
+
+    /**
+     * Create a post
+     */
+
+  }, {
+    key: 'createPost',
+    value: function createPost() {
+      var _this = this;
+
+      this.threadService.createPost(this.file, this.threadData, this.state.params.threadId).then(function () {
         _this.isFormActive = false;
-        alert('done');
+        _this.scope.onSucceed();
+      }).catch(function (error) {
+        alert('error');
+        console.log(error);
+      });
+    }
+
+    /**
+     * Create a thread
+     */
+
+  }, {
+    key: 'createThread',
+    value: function createThread() {
+      var _this2 = this;
+
+      this.threadService.createThread(this.file, this.threadData).then(function () {
+        _this2.isFormActive = false;
+        _this2.scope.onSucceed();
       }).catch(function (error) {
         alert('error');
         console.log(error);
@@ -19704,7 +19724,11 @@ angular.module(_name2.default).directive('newThread', [function () {
     restrict: 'E',
     controller: NewThread,
     controllerAs: 'newThreadCtrl',
-    template: _createThread2.default
+    template: _createThread2.default,
+    scope: {
+      onSucceed: '&',
+      createThread: '='
+    }
   };
 }]);
 
@@ -19750,6 +19774,8 @@ angular.module(_name2.default).directive('post', [function () {
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _name = __webpack_require__(1);
 
 var _name2 = _interopRequireDefault(_name);
@@ -19762,9 +19788,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ThreadPost = function ThreadPost() {
-  _classCallCheck(this, ThreadPost);
-};
+var ThreadPost = function () {
+  function ThreadPost($state) {
+    _classCallCheck(this, ThreadPost);
+
+    this.state = $state;
+  }
+
+  /**
+   * Open a thread to see it's posts
+   * @param {String} threadId
+   * @param {Number} boardId
+   */
+
+
+  _createClass(ThreadPost, [{
+    key: 'openThread',
+    value: function openThread(threadId, boardId) {
+      this.state.go('thread', {
+        boardId: boardId,
+        threadId: threadId
+      });
+    }
+  }]);
+
+  return ThreadPost;
+}();
 
 angular.module(_name2.default).directive('threadPost', [function () {
   return {
@@ -19818,6 +19867,16 @@ var AbstractThread = exports.AbstractThread = function () {
     get: function get() {
       return (0, _moment2.default)(this.timestamp).format('DD/MM/YYYY(ddd)HH:MM:SS');
     }
+
+    /**
+     * @returns {Number}
+     */
+
+  }, {
+    key: 'id',
+    get: function get() {
+      return this.$loki;
+    }
   }]);
 
   return AbstractThread;
@@ -19862,6 +19921,16 @@ var PostModel = exports.PostModel = function () {
     key: 'customTimestamp',
     get: function get() {
       return (0, _moment2.default)(this.timestamp).format('DD/MM/YYYY(ddd)HH:MM:SS');
+    }
+
+    /**
+     * @returns {Number}
+     */
+
+  }, {
+    key: 'id',
+    get: function get() {
+      return this.customId;
     }
   }]);
 
@@ -19931,7 +20000,7 @@ var ThreadPreviewModel = exports.ThreadPreviewModel = function (_AbstractThread)
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = this.lastReplies[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = this.replies[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var post = _step.value;
 
           this.posts.push(new _PostModel.PostModel(post));
@@ -20023,6 +20092,12 @@ var states = [{
   name: 'board',
   url: '/:boardId',
   template: _board2.default
+}, {
+  controller: 'boardController',
+  controllerAs: 'boardCtrl',
+  name: 'thread',
+  url: '/:boardId/:threadId',
+  template: _board2.default
 }];
 
 angular.module(_name2.default).config(function ($stateProvider) {
@@ -20038,7 +20113,7 @@ angular.module(_name2.default).config(function ($stateProvider) {
 "use strict";
 
 
-module.exports = "<div class=\"board-page\">\r\n    <div class=\"header\">\r\n        [\r\n        <span ng-repeat=\"boardId in boardCtrl.boards track by $index\">\r\n            <a href ng-click=\"boardCtrl.changeBoard(boardId)\">{{boardId}}</a>\r\n            <span ng-if=\"boardCtrl.showSlash($index)\"> /</span>\r\n        </span>\r\n        ]\r\n    </div>\r\n\r\n    <div class=\"row intro\">\r\n        <div class=\"col-md-offset-4 col-md-4\">\r\n            <img src=\"/assets/img/banner.gif\" alt=\"funny cat\">\r\n            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name'}}</h2>\r\n        </div>\r\n    </div>\r\n    <hr class=\"full-size\">\r\n\r\n    <div class=\"row intro\">\r\n        <new-thread class=\"col-md-offset-4 col-md-4\"></new-thread>\r\n    </div>\r\n\r\n    <hr>\r\n    <div class=\"board-actions\">\r\n        [<a href>Catalog</a>]\r\n    </div>\r\n    <hr>\r\n\r\n    <div>\r\n        <div ng-repeat=\"thread in boardCtrl.threadsPreview track by $index\">\r\n            <thread-post post=\"thread\"></thread-post>\r\n            <hr class=\"threads-divider\">\r\n        </div>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"board-page\">\r\n    <div class=\"header\">\r\n        [\r\n        <span ng-repeat=\"boardId in boardCtrl.boards track by $index\">\r\n            <a href ng-click=\"boardCtrl.changeBoard(boardId)\">{{boardId}}</a>\r\n            <span ng-if=\"boardCtrl.showSlash($index)\"> /</span>\r\n        </span>\r\n        ]\r\n    </div>\r\n\r\n    <div class=\"row intro\">\r\n        <div class=\"col-md-offset-4 col-md-4\">\r\n            <img src=\"/assets/img/banner.gif\" alt=\"funny cat\">\r\n            <h2>/{{boardCtrl.state.params.boardId}}/ - {{'Board Name'}}</h2>\r\n        </div>\r\n    </div>\r\n    <hr class=\"full-size\">\r\n\r\n    <div class=\"row intro\">\r\n        <new-thread on-succeed=\"boardCtrl.onAdditionSucceed()\" create-thread=\"!boardCtrl.onThreadPage\" class=\"col-md-offset-4 col-md-4\"></new-thread>\r\n    </div>\r\n\r\n    <hr>\r\n    <div class=\"board-actions\">\r\n        [<a href>Catalog</a>]\r\n    </div>\r\n    <hr>\r\n\r\n    <div>\r\n        <div ng-repeat=\"thread in boardCtrl.threadsPreview track by $index\">\r\n            <thread-post on-thread-page=\"boardCtrl.onThreadPage\" post=\"thread\"></thread-post>\r\n            <hr class=\"threads-divider\">\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ }),
 /* 128 */
@@ -20056,7 +20131,7 @@ module.exports = "<div class=\"content-table\">\r\n    <div class=\"content-head
 "use strict";
 
 
-module.exports = "<div class=\"new-thread\">\r\n    <div class=\"display-button\" ng-if=\"!newThreadCtrl.isFormActive\">\r\n        <h3>\r\n            [<a href ng-click=\"newThreadCtrl.showForm()\">Start a new thread</a>]\r\n        </h3>\r\n    </div>\r\n    <div class=\"form\" ng-if=\"newThreadCtrl.isFormActive\">\r\n        <form ng-submit=\"newThreadCtrl.createThread()\" name=\"newThread\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Name</div>\r\n                <div class=\"col-md-7 name-input\">\r\n                    <input type=\"text\" name=\"name\" ng-model=\"newThreadCtrl.threadData.name\" placeholder=\"Anonymous\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Subject</div>\r\n                <div class=\"col-md-7 subject-input\">\r\n                    <input type=\"text\" name=\"subject\" ng-model=\"newThreadCtrl.threadData.subject\" />\r\n                </div>\r\n                <div class=\"col-md-1 submit-button\">\r\n                    <input type=\"submit\" value=\"post\"/>\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Comment</div>\r\n                <div class=\"col-md-8 comment-textarea\">\r\n                    <textarea name=\"comment\" ng-model=\"newThreadCtrl.threadData.comment\" cols=\"48\" rows=\"4\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2 ignore file-select\">\r\n                    <div class=\"button\" ngf-select ng-model=\"newThreadCtrl.file\" name=\"file\" ngf-pattern=\"'image/*'\"\r\n                         ngf-accept=\"'image/*'\" ngf-max-size=\"20MB\" ngf-min-width=\"250\">Select File</div>\r\n                </div>\r\n                <div class=\"col-md-7 file-name\">\r\n                    {{newThreadCtrl.file.name}}\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
+module.exports = "<div class=\"new-thread\">\r\n    <div class=\"display-button\" ng-if=\"!newThreadCtrl.isFormActive\">\r\n        <h3>\r\n            [<a href ng-click=\"newThreadCtrl.showForm()\">{{createThread ? 'Start a new thread' : 'Post a Reply'}}</a>]\r\n        </h3>\r\n    </div>\r\n    <div class=\"form\" ng-if=\"newThreadCtrl.isFormActive\">\r\n        <form ng-submit=\"newThreadCtrl.create()\" name=\"newThread\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Name</div>\r\n                <div class=\"col-md-7 name-input\">\r\n                    <input type=\"text\" name=\"name\" ng-model=\"newThreadCtrl.threadData.author\" placeholder=\"Anonymous\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Subject</div>\r\n                <div class=\"col-md-7 subject-input\">\r\n                    <input type=\"text\" name=\"subject\" ng-model=\"newThreadCtrl.threadData.subject\" />\r\n                </div>\r\n                <div class=\"col-md-1 submit-button\">\r\n                    <input type=\"submit\" value=\"post\"/>\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2\">Comment</div>\r\n                <div class=\"col-md-8 comment-textarea\">\r\n                    <textarea name=\"comment\" ng-model=\"newThreadCtrl.threadData.comment\" cols=\"48\" rows=\"4\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-md-offset-1 col-md-2 ignore file-select\">\r\n                    <div class=\"button\" ngf-select ng-model=\"newThreadCtrl.file\" name=\"file\" ngf-pattern=\"'image/*'\"\r\n                         ngf-accept=\"'image/*'\" ngf-max-size=\"20MB\" ngf-min-width=\"250\">Select File</div>\r\n                </div>\r\n                <div class=\"col-md-7 file-name\">\r\n                    {{newThreadCtrl.file.name}}\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
 
 /***/ }),
 /* 130 */
@@ -20065,7 +20140,7 @@ module.exports = "<div class=\"new-thread\">\r\n    <div class=\"display-button\
 "use strict";
 
 
-module.exports = "<div class=\"post\">\r\n    <div class=\"side-arrows\">>></div>\r\n    <div class=\"inner-post\">\r\n        <div class=\"post-header\">\r\n            <span class=\"author\">{{post.author}}</span> {{post.customTimestamp}} No.{{post.id}} <br>\r\n            <div class=\"image-container\" ng-if=\"post.imageName\">\r\n                File: <a ng-href=\"{{post.imageLink}}\" target=\"_blank\">{{post.imageName}}</a> (126KB, 800x715) <br>\r\n                <img ng-src=\"{{post.previewImageLink}}\" width=\"125\" alt=\"post image\" />\r\n            </div>\r\n            <span class=\"message-box\" ng-bind=\"post.message\"></span>\r\n        </div>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"post\">\r\n    <div class=\"side-arrows\">>></div>\r\n    <div class=\"inner-post\">\r\n        <div class=\"post-header\">\r\n            <span class=\"author\">{{post.author}}</span> {{post.customTimestamp}} No.{{post.id}} <br>\r\n            <div class=\"image-container\" ng-if=\"post.image\">\r\n                File: <a ng-href=\"{{post.image.link}}\" target=\"_blank\">{{post.image.name}}</a> ({{post.image.size / 1024 | number : 2}}KB, 800x715) <br>\r\n                <img ng-src=\"{{post.image.previewLink}}\" width=\"125\" alt=\"post image\" />\r\n            </div>\r\n            <span class=\"message-box\" ng-bind=\"post.comment\"></span>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ }),
 /* 131 */
@@ -20074,7 +20149,7 @@ module.exports = "<div class=\"post\">\r\n    <div class=\"side-arrows\">>></div
 "use strict";
 
 
-module.exports = "<div class=\"thread\">\r\n    <div class=\"image-metadata\">\r\n        File: <a target=\"_blank\" ng-href=\"{{thread.imageLink}}\">{{thread.imageName}}</a> (30 KB, 970x746)\r\n    </div>\r\n    <div class=\"row thread-post\">\r\n        <img ng-src=\"{{thread.previewImageLink}}\" alt=\"image preview\" width=\"250\"/>\r\n        <div>\r\n            <div class=\"post-header\">\r\n                <span class=\"author\">{{thread.author}}</span> {{thread.customTimestamp}} No.{{thread.id}} [<a href>Reply</a>]\r\n            </div>\r\n            <div class=\"post-content\">{{thread.message}}</div>\r\n        </div>\r\n\r\n        <div class=\"thread-content\">\r\n            {{thread.replies}} replies and {{thread.imagesTotal}} image{{thread.imagesTotal > 1 ? 's' : ''}} omitted. <a href>Click here</a> to view\r\n        </div>\r\n        <post class=\"post\" post=\"post\" ng-repeat=\"post in thread.posts track by $index\"></post>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"thread\">\r\n    <div class=\"image-metadata\">\r\n        File: <a target=\"_blank\" ng-href=\"{{thread.image.link}}\">{{thread.image.name}}</a> ({{thread.image.size / 1024 | number : 2}} KB, 970x746)\r\n    </div>\r\n    <div class=\"row thread-post\">\r\n        <img ng-src=\"{{thread.image.previewLink}}\" alt=\"image preview\" width=\"250\"/>\r\n        <div>\r\n            <div class=\"post-header\">\r\n                <span class=\"subject\">{{thread.subject}}</span> <span class=\"author\">{{thread.author}}</span> {{thread.customTimestamp}} No.{{thread.id}}\r\n                [<a ng-click=\"threadPostCtrl.openThread(thread.id, thread.board)\" href>Reply</a>]\r\n            </div>\r\n            <div class=\"post-content\">{{thread.comment}}</div>\r\n        </div>\r\n\r\n        <div class=\"thread-content\" ng-if=\"thread.repliesTotal > 0\">\r\n            {{thread.repliesTotal}} replies and {{thread.imagesTotal}} image{{thread.imagesTotal > 1 ? 's' : ''}} omitted. <a href>Click here</a> to view\r\n        </div>\r\n        <post class=\"post\" post=\"post\" ng-repeat=\"post in thread.posts track by $index\"></post>\r\n    </div>\r\n</div>";
 
 /***/ }),
 /* 132 */
@@ -20094,7 +20169,7 @@ exports = module.exports = __webpack_require__(134)();
 
 
 // module
-exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.row {\n  max-width: 100%; }\n\n.thread {\n  margin-left: 15px; }\n  .thread .thread-post {\n    color: #800000; }\n    .thread .thread-post img {\n      float: left; }\n    .thread .thread-post .post-content {\n      white-space: pre-wrap; }\n    .thread .thread-post .thread-content {\n      margin-top: 10px;\n      color: #707070; }\n\n.post-header {\n  margin-bottom: 5px; }\n  .post-header .author {\n    color: #117743;\n    font-weight: bold; }\n\n.image-metadata a {\n  text-decoration: underline; }\n\n.post {\n  display: block; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n\n.board-page {\n  padding-left: 5px;\n  padding-right: 5px; }\n  .board-page .header a {\n    color: #800;\n    cursor: pointer; }\n  .board-page .intro {\n    text-align: center; }\n    .board-page .intro h2 {\n      font-weight: bold; }\n    .board-page .intro img {\n      display: block;\n      margin-left: auto;\n      margin-right: auto;\n      border: 1px solid black; }\n  .board-page hr {\n    border-top: 1px solid #B7C5D9;\n    margin-top: 0;\n    margin-bottom: 5px; }\n    .board-page hr.full-size {\n      width: 90%; }\n  .board-page .board-actions {\n    margin-bottom: 5px;\n    padding-left: 5px; }\n  .board-page .threads-divider {\n    margin-top: 10px; }\n\n.new-thread .display-button h3:first-of-type {\n  margin-top: 10px;\n  font-weight: bold; }\n  .new-thread .display-button h3:first-of-type a {\n    margin-left: 1px;\n    margin-right: 1px; }\n\n.new-thread .form {\n  margin-bottom: 10px; }\n  .new-thread .form .row {\n    margin-bottom: 2px; }\n    .new-thread .form .row div:first-child:not(.ignore) {\n      border: 1px solid black;\n      background-color: #98E;\n      color: black;\n      font-weight: bold;\n      text-align: left;\n      padding-left: 5px; }\n    .new-thread .form .row .subject-input, .new-thread .form .row .name-input, .new-thread .form .row .comment-textarea, .new-thread .form .row .submit-button, .new-thread .form .row .file-name {\n      padding-left: 2px;\n      padding-right: 2px; }\n    .new-thread .form .row div input {\n      height: 22px;\n      width: 100%; }\n    .new-thread .form .row div input, .new-thread .form .row div textarea {\n      float: left;\n      color: black; }\n    .new-thread .form .row div textarea {\n      width: 100%; }\n    .new-thread .form .row .file-select {\n      padding-left: 0;\n      padding-right: 0; }\n      .new-thread .form .row .file-select .button {\n        width: 100%; }\n    .new-thread .form .row .submit-button input {\n      float: right;\n      color: black;\n      text-transform: capitalize; }\n    .new-thread .form .row .file-name {\n      text-align: left; }\n\n.post {\n  margin-top: 5px; }\n  .post .side-arrows {\n    float: left;\n    color: #B7C5D9; }\n  .post .inner-post {\n    background-color: #f0e0d6;\n    display: table;\n    padding: 3px;\n    border: 1px solid #D9BFB7;\n    border-left: none;\n    border-top: none; }\n    .post .inner-post .image-container a {\n      text-decoration: underline; }\n    .post .inner-post .image-container img {\n      float: left; }\n    .post .inner-post .message-box {\n      margin-left: 20px;\n      margin-top: 20px; }\n", ""]);
+exports.push([module.i, "body {\n  background: #ffe url(/assets/img/background.png) top repeat-x;\n  color: #800; }\n\n.row {\n  max-width: 100%; }\n\n.thread {\n  margin-left: 15px; }\n  .thread .thread-post {\n    color: #800000; }\n    .thread .thread-post img {\n      float: left;\n      margin-right: 10px; }\n    .thread .thread-post .post-content {\n      white-space: pre-wrap; }\n    .thread .thread-post .thread-content {\n      margin-top: 10px;\n      color: #707070; }\n\n.post-header {\n  margin-bottom: 5px; }\n  .post-header .author {\n    color: #117743;\n    font-weight: bold; }\n  .post-header .subject {\n    color: #cc1105;\n    font-weight: bold; }\n\n.image-metadata a {\n  text-decoration: underline; }\n\n.post {\n  display: block; }\n\n.home-page {\n  height: 100vh; }\n\n.content-table {\n  border: 1px solid; }\n  .content-table .content-header {\n    background: #fca; }\n    .content-table .content-header h2 {\n      margin: 0;\n      font-size: 18px;\n      font-weight: bold;\n      padding-left: 5px;\n      padding-top: 2px;\n      padding-bottom: 2px; }\n  .content-table .categories {\n    margin-top: 5px; }\n  .content-table ul li {\n    list-style-type: none;\n    text-transform: capitalize; }\n    .content-table ul li a {\n      color: #800; }\n\n.board-page {\n  padding-left: 5px;\n  padding-right: 5px; }\n  .board-page .header a {\n    color: #800;\n    cursor: pointer; }\n  .board-page .intro {\n    text-align: center; }\n    .board-page .intro h2 {\n      font-weight: bold; }\n    .board-page .intro img {\n      display: block;\n      margin-left: auto;\n      margin-right: auto;\n      border: 1px solid black; }\n  .board-page hr {\n    border-top: 1px solid #B7C5D9;\n    margin-top: 0;\n    margin-bottom: 5px; }\n    .board-page hr.full-size {\n      width: 90%; }\n  .board-page .board-actions {\n    margin-bottom: 5px;\n    padding-left: 5px; }\n  .board-page .threads-divider {\n    margin-top: 10px; }\n\n.new-thread .display-button h3:first-of-type {\n  margin-top: 10px;\n  font-weight: bold; }\n  .new-thread .display-button h3:first-of-type a {\n    margin-left: 1px;\n    margin-right: 1px; }\n\n.new-thread .form {\n  margin-bottom: 10px; }\n  .new-thread .form .row {\n    margin-bottom: 2px; }\n    .new-thread .form .row div:first-child:not(.ignore) {\n      border: 1px solid black;\n      background-color: #98E;\n      color: black;\n      font-weight: bold;\n      text-align: left;\n      padding-left: 5px; }\n    .new-thread .form .row .subject-input, .new-thread .form .row .name-input, .new-thread .form .row .comment-textarea, .new-thread .form .row .submit-button, .new-thread .form .row .file-name {\n      padding-left: 2px;\n      padding-right: 2px; }\n    .new-thread .form .row div input {\n      height: 22px;\n      width: 100%; }\n    .new-thread .form .row div input, .new-thread .form .row div textarea {\n      float: left;\n      color: black; }\n    .new-thread .form .row div textarea {\n      width: 100%; }\n    .new-thread .form .row .file-select {\n      padding-left: 0;\n      padding-right: 0; }\n      .new-thread .form .row .file-select .button {\n        width: 100%; }\n    .new-thread .form .row .submit-button input {\n      float: right;\n      color: black;\n      text-transform: capitalize; }\n    .new-thread .form .row .file-name {\n      text-align: left; }\n\n.post {\n  margin-top: 5px; }\n  .post .side-arrows {\n    float: left;\n    color: #B7C5D9; }\n  .post .inner-post {\n    background-color: #f0e0d6;\n    display: table;\n    padding: 3px;\n    border: 1px solid #D9BFB7;\n    border-left: none;\n    border-top: none; }\n    .post .inner-post .image-container a {\n      text-decoration: underline; }\n    .post .inner-post .image-container img {\n      float: left; }\n    .post .inner-post .message-box {\n      margin-left: 20px;\n      margin-top: 20px; }\n", ""]);
 
 // exports
 
@@ -23625,6 +23700,8 @@ var _name = __webpack_require__(1);
 
 var _name2 = _interopRequireDefault(_name);
 
+var _ThreadPreviewModel = __webpack_require__(123);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23648,7 +23725,9 @@ var ThreadService = function () {
 
   _createClass(ThreadService, [{
     key: 'createThread',
-    value: function createThread(file, formData, progressUpdater) {
+    value: function createThread(file, formData) {
+      var progressUpdater = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
       return this.upload.upload({
         url: '/api/thread',
         data: angular.extend({ thread_image: file }, formData)
@@ -23656,8 +23735,64 @@ var ThreadService = function () {
         return Promise.resolve();
       }, function (error) {
         return Promise.reject(error);
-      }, function (evt) {
-        console.log(parseInt(100.0 * evt.loaded / evt.total));
+      }, function (env) {
+        return progressUpdater(env);
+      });
+    }
+
+    /**
+     * Create a new post
+     * @param {Object} file
+     * @param {Object} formData
+     * @param {Number} threadId
+     * @param {Function} progressUpdater
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'createPost',
+    value: function createPost(file, formData, threadId) {
+      var progressUpdater = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+
+      return this.upload.upload({
+        url: '/api/post',
+        data: angular.extend({ post_image: file }, formData, { threadId: threadId })
+      }).then(function () {
+        return Promise.resolve();
+      }, function (error) {
+        return Promise.reject(error);
+      }, function (env) {
+        return progressUpdater(env);
+      });
+    }
+
+    /**
+     * Return last active threads
+     * @param {String} boardId
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'getLastActiveThreads',
+    value: function getLastActiveThreads(boardId) {
+      return this.http.get('/api/board/' + boardId).then(function (response) {
+        return response.data.map(function (el) {
+          return new _ThreadPreviewModel.ThreadPreviewModel(el);
+        });
+      });
+    }
+
+    /**
+     * Get all thread's posts
+     * @param {Number} threadId
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'getPosts',
+    value: function getPosts(threadId) {
+      return this.http.get('/api/thread/' + threadId).then(function (response) {
+        return [new _ThreadPreviewModel.ThreadPreviewModel(response.data)];
       });
     }
   }]);

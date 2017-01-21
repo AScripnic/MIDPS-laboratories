@@ -15,7 +15,7 @@ export class ThreadPreviewModel extends AbstractThread {
   initializePosts() {
     this.posts = [];
 
-    for (let post of this.lastReplies) {
+    for (let post of this.replies) {
       this.posts.push(new PostModel(post));
     }
   }

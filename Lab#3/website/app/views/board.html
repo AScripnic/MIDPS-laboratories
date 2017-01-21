@@ -17,7 +17,7 @@
     <hr class="full-size">
 
     <div class="row intro">
-        <new-thread class="col-md-offset-4 col-md-4"></new-thread>
+        <new-thread on-succeed="boardCtrl.onAdditionSucceed()" create-thread="!boardCtrl.onThreadPage" class="col-md-offset-4 col-md-4"></new-thread>
     </div>
 
     <hr>
@@ -28,7 +28,7 @@
 
     <div>
         <div ng-repeat="thread in boardCtrl.threadsPreview track by $index">
-            <thread-post post="thread"></thread-post>
+            <thread-post on-thread-page="boardCtrl.onThreadPage" post="thread"></thread-post>
             <hr class="threads-divider">
         </div>
     </div>

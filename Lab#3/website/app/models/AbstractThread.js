@@ -13,4 +13,11 @@ export class AbstractThread {
     return moment(this.timestamp).format('DD/MM/YYYY(ddd)HH:MM:SS');
   }
 
+  /**
+   * @returns {Number}
+   */
+  get id() {
+    return this.$loki;
+  }
+
 }

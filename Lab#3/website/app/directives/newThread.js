@@ -2,11 +2,15 @@ import moduleName from '../name';
 import newThreadTemplate from '../views/directives/create-thread.html';
 
 class NewThread {
-  constructor(threadService) {
+  constructor(threadService, $state, $scope) {
     this.threadService = threadService;
+    this.scope = $scope;
+    this.state = $state;
 
     this.isFormActive = false;
-    this.threadData = {subject:'asdasd', comment:'asdasd'};
+    this.threadData = {
+      board: $state.params.boardId
+    };
   }
 
   /**
@@ -25,16 +29,36 @@ class NewThread {
   }
 
   /**
-   * Create a thread
+   * Create a post or a thread based on scope.createThread
    */
-  createThread() {
+  create() {
     if (!this.isDataValid) {
       alert('Please fill at least subject or comment information')
     }
 
+    this.scope.createThread ? this.createThread() : this.createPost();
+  }
+
+  /**
+   * Create a post
+   */
+  createPost() {
+    this.threadService.createPost(this.file, this.threadData, this.state.params.threadId).then(() => {
+      this.isFormActive = false;
+      this.scope.onSucceed();
+    }).catch((error) => {
+      alert('error');
+      console.log(error);
+    });
+  }
+
+  /**
+   * Create a thread
+   */
+  createThread() {
     this.threadService.createThread(this.file, this.threadData).then(() => {
       this.isFormActive = false;
-      alert('done');
+      this.scope.onSucceed();
     }).catch((error) => {
       alert('error');
       console.log(error);
@@ -48,6 +72,10 @@ angular.module(moduleName)
       restrict: 'E',
       controller: NewThread,
       controllerAs: 'newThreadCtrl',
-      template: newThreadTemplate
+      template: newThreadTemplate,
+      scope: {
+        onSucceed: '&',
+        createThread: '='
+      }
     }
   }]);

@@ -1,15 +1,15 @@
 <div class="new-thread">
     <div class="display-button" ng-if="!newThreadCtrl.isFormActive">
         <h3>
-            [<a href ng-click="newThreadCtrl.showForm()">Start a new thread</a>]
+            [<a href ng-click="newThreadCtrl.showForm()">{{createThread ? 'Start a new thread' : 'Post a Reply'}}</a>]
         </h3>
     </div>
     <div class="form" ng-if="newThreadCtrl.isFormActive">
-        <form ng-submit="newThreadCtrl.createThread()" name="newThread">
+        <form ng-submit="newThreadCtrl.create()" name="newThread">
             <div class="row">
                 <div class="col-md-offset-1 col-md-2">Name</div>
                 <div class="col-md-7 name-input">
-                    <input type="text" name="name" ng-model="newThreadCtrl.threadData.name" placeholder="Anonymous" />
+                    <input type="text" name="name" ng-model="newThreadCtrl.threadData.author" placeholder="Anonymous" />
                 </div>
             </div>
             <div class="row">
