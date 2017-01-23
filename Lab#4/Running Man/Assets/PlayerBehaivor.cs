@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerBehaivor : MonoBehaviour {
     private Rigidbody2D playerRigidbody;
-    private float lastSpeedPower;
     private float speedBoost = 1.1f;
     private float getUpTime;
 
@@ -15,6 +15,7 @@ public class PlayerBehaivor : MonoBehaviour {
     public GameMechanics GameMaster;
     public LayerMask Ground;
     public LayerMask Obstacle;
+    public Text Score;
 
     private Vector2 startPos;
     private Vector2 direction;
@@ -25,7 +26,6 @@ public class PlayerBehaivor : MonoBehaviour {
 
 	void Start () {
         playerRigidbody = GetComponent<Rigidbody2D>();
-        lastSpeedPower = CharacterSpeed;
 
         SetVelocity(CharacterSpeed, playerRigidbody.velocity.y);
     }
@@ -33,6 +33,7 @@ public class PlayerBehaivor : MonoBehaviour {
 	void Update () {
         if (!gameOver) {
             SetVelocity(CharacterSpeed, playerRigidbody.velocity.y);
+            Score.GetComponent<Text>().text = "Score: " + (Mathf.FloorToInt(Time.timeSinceLevelLoad * 1000));
         } else if (Input.GetMouseButtonDown(0) || Input.touchCount > 0) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -60,6 +61,7 @@ public class PlayerBehaivor : MonoBehaviour {
         GetComponent<Animator>().SetBool("grounded", grounded);
         GetComponent<Animator>().SetBool("sliding", sliding);
         GetComponent<Animator>().SetFloat("speed", CharacterSpeed);
+
     }
 
     private void touchMovement() {
@@ -116,8 +118,8 @@ public class PlayerBehaivor : MonoBehaviour {
 
     private void slide(bool sliding) {
         if (sliding) {
-            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.125f);
-            GetComponent<BoxCollider2D>().offset = new Vector2(0.015f, -0.1f);
+            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.1227661f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.015f, -0.09888297f);
         } else {
             GetComponent<BoxCollider2D>().size = new Vector2(0.105f, 0.24f);
             GetComponent<BoxCollider2D>().offset = new Vector2(0.01f, -0.04f);
