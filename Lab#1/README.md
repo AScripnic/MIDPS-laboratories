@@ -9,6 +9,17 @@ To accomplish these task I've done next steps:
 3. Crated new dev branch to work in
 3. Commited initial `README.md` and `.gitignore` files and pushed them
 4. Opened a new pull request to master branch
+5. Made 2 new branches and a commit in each
+6. Reseted a branch
+7. Added new files in .gitignore
+8. Merged to branches
+9. Resolved a conflict between 2 branches
+10. Created a new tag
+
+## For more detailed report please check: 
+
+* PDF Version : [Here](https://github.com/AScripnic/MIDPS-laboratories/blob/master/Lab%231/Documentation/Lab_template.pdf)
+* Latex Version : [Here](https://github.com/AScripnic/MIDPS-laboratories/blob/master/Lab%231/Documentation/Lab_template.tex)
 
 ## Problems met 
 
