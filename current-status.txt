@@ -5,3 +5,4 @@ Untracked files:
 	current-status.txt
 
 nothing added to commit but untracked files present (use "git add" to track)
+text
