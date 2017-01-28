@@ -20,8 +20,9 @@ Requires:
 Steps: 
 
 1. Open terminal/cmd to server folder
-2. Run `node app.js`
-3. Done
+2. Run `npm install` (only first time)
+3. Run `node app.js`
+4. Done
 
 Recommended IDE:
 * WebStorm
