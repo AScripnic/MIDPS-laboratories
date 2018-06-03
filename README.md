@@ -1,29 +1,33 @@
-# MIDPS laboratory works
+# Laboratory work number 3
 
-In this repository you can find laboratory works that belongs to student Scripnic Alexandru, TI141 F/R
+## 3.5 Chan Website
 
-## Table of content 
+### Website functionalities
+* Storing data in lokijs database
+* Having it's own server on nodejs
+* Main Website Framework is Angular
+* 2 completly dynamic pages and 1 static (Home page)
+* AJAX Requests to server with uploading functionality
+* Bundled format for fast and clean using (less cache)
 
-### Laboratory work number 1
+### How to start on local machine
 
-Small introduction in Version Control Systems as git and in our case we are using it with github.
+Requires:
+* Nodejs 4.3.x< version 
+	* For Linux OS - http://www.hostingadvice.com/how-to/install-nodejs-ubuntu-14-04/
+	* For Windows OS / Machintosh - https://nodejs.org/en/download/
 
-For more detailed explantions and reports please press [here](https://github.com/AScripnic/MIDPS-laboratories/tree/master/Lab%231);
+Steps: 
 
-### Laboratory work number 2
+1. Open terminal/cmd to server folder
+2. Run `node app.js`
+3. Done
 
-In our way of learning visual programing we have created a simple calculator.
+Recommended IDE:
+* WebStorm
 
-For testing purposes or detailed exlanations please press [here](https://github.com/AScripnic/MIDPS-laboratories/tree/master/Lab%232);
 
-### Laboratory work number 3
+### For more detailed report please check: 
 
-Creating our own website using html, javascript and css and on user's discretion server language.
-
-To take a look at `3.5 chan` website or detailed explanations please press [here](https://github.com/AScripnic/MIDPS-laboratories/tree/master/Lab%233);
-
-### Laboratory work number 4
-
-Develop out first mobile application using any SDK we want.
-
-To check out `Running Man` game or detailed explanations please press [here](https://github.com/AScripnic/MIDPS-laboratories/tree/master/Lab%234);
+* PDF Version : [Here](https://github.com/AScripnic/MIDPS-laboratories/blob/master/Lab%233/Documentation/Lab_template.pdf)
+* Latex Version : [Here](https://github.com/AScripnic/MIDPS-laboratories/blob/master/Lab%233/Documentation/Lab_template.tex)

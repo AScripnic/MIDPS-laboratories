@@ -1,8 +1,12 @@
 .idea
+
 node_modules
 
-server/images/*
-server/databse/*
 
-Lab_template.log
-Conclusions.log
+server/images/*
+server/database/*
+
+!server/images/.gitkeep
+!server/database/.gitkeep
+
+npm-debug.log

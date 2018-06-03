@@ -1,0 +1,20 @@
+<div class="thread">
+    <div class="image-metadata">
+        File: <a target="_blank" ng-href="{{thread.image.link}}">{{thread.image.name}}</a> ({{thread.image.size / 1024 | number : 2}} KB, 970x746)
+    </div>
+    <div class="row thread-post">
+        <img ng-src="{{thread.image.previewLink}}" alt="image preview" width="250"/>
+        <div>
+            <div class="post-header">
+                <span class="subject">{{thread.subject}}</span> <span class="author">{{thread.author}}</span> {{thread.customTimestamp}} No.{{thread.id}}
+                [<a ng-click="threadPostCtrl.openThread(thread.id, thread.board)" href>Reply</a>]
+            </div>
+            <div class="post-content">{{thread.comment}}</div>
+        </div>
+
+        <div class="thread-content" ng-if="thread.repliesTotal > 0">
+            {{thread.repliesTotal}} replies and {{thread.imagesTotal}} image{{thread.imagesTotal > 1 ? 's' : ''}} omitted. <a href>Click here</a> to view
+        </div>
+        <post class="post" post="post" ng-repeat="post in thread.posts track by $index"></post>
+    </div>
+</div>

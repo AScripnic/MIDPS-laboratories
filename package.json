@@ -1,0 +1,13 @@
+{
+  "name": "Laborator5",
+  "version": "1.0.0",
+  "description": "* Storing data in lokijs database\r * Having it's own server on nodejs\r * Main Website Framework is Angular\r * 2 completly dynamic pages and 1 static (Home page)\r * AJAX Requests to server with uploading functionality\r * Bundled format for fast and clean using (less cache)",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd website && npm install && cd ../server && npm install && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,32 @@
+.post {
+  margin-top: 5px;
+
+  .side-arrows {
+    float: left;
+    color: #B7C5D9;
+  }
+
+  .inner-post {
+    background-color: #f0e0d6;
+    display: table;
+    padding: 3px;
+    border: 1px solid #D9BFB7;
+    border-left: none;
+    border-top: none;
+
+    .image-container {
+      a {
+        text-decoration: underline;
+      }
+
+      img {
+        float: left;
+      }
+    }
+
+    .message-box {
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+  }
+}

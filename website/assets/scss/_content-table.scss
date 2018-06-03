@@ -1,0 +1,29 @@
+.content-table {
+  border: 1px solid;
+
+  .content-header {
+    background: #fca;
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+      padding-left: 5px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+  }
+
+  .categories {
+    margin-top: 5px;
+  }
+
+  ul li {
+    list-style-type: none;
+    text-transform: capitalize;
+
+    a {
+      color: #800;
+    }
+  }
+}

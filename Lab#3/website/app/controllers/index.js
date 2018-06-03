@@ -1,2 +1,0 @@
-import './homeController';
-import './boardController';

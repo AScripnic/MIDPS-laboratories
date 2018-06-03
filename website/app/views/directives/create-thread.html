@@ -1,0 +1,41 @@
+<div class="new-thread">
+    <div class="display-button" ng-if="!newThreadCtrl.isFormActive">
+        <h3>
+            [<a href ng-click="newThreadCtrl.showForm()">{{createThread ? 'Start a new thread' : 'Post a Reply'}}</a>]
+        </h3>
+    </div>
+    <div class="form" ng-if="newThreadCtrl.isFormActive">
+        <form ng-submit="newThreadCtrl.create()" name="newThread">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2">Name</div>
+                <div class="col-md-7 name-input">
+                    <input type="text" name="name" ng-model="newThreadCtrl.threadData.author" placeholder="Anonymous" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2">Subject</div>
+                <div class="col-md-7 subject-input">
+                    <input type="text" name="subject" ng-model="newThreadCtrl.threadData.subject" />
+                </div>
+                <div class="col-md-1 submit-button">
+                    <input type="submit" value="post"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2">Comment</div>
+                <div class="col-md-8 comment-textarea">
+                    <textarea name="comment" ng-model="newThreadCtrl.threadData.comment" cols="48" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2 ignore file-select">
+                    <div class="button" ngf-select ng-model="newThreadCtrl.file" name="file" ngf-pattern="'image/*'"
+                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-width="250">Select File</div>
+                </div>
+                <div class="col-md-7 file-name">
+                    {{newThreadCtrl.file.name}}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
