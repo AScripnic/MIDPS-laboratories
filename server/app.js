@@ -62,7 +62,7 @@ app.get('/api/thread/:id', (req, res) => {
 });
 
 let dbManager = DBManager.dbStart(() => {
-  app.listen(3000, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log('server have started on port 3000');
   });
 });
